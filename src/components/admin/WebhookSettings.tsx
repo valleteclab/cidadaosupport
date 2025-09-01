@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, Globe, Trash2 } from 'lucide-react';
+import { Link, Globe } from 'lucide-react';
 import { WEBHOOK_CONFIG, WEBHOOK_TEMPLATES } from '../../constants/webhooks';
 
 const WebhookSettings: React.FC = () => {

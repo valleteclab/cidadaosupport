@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Clock, AlertCircle } from 'lucide-react';
 
 const tickets = [
@@ -83,4 +83,4 @@ const RecentTickets: React.FC = () => {
   );
 };
 
-export default RecentTickets;
+export default memo(RecentTickets);

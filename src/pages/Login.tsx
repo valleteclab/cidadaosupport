@@ -1,22 +1,22 @@
 import React, { useState } from 'react';
-import { User, Lock } from 'lucide-react';
+import { User as UserIcon, Lock, AlertCircle } from 'lucide-react';
+import { User } from '../types';
+import { useApi } from '../hooks/useApi';
 
 interface LoginProps {
-  onLogin: (userData: any) => void;
+  onLogin: (userData: User) => void;
 }
 
 const Login: React.FC<LoginProps> = ({ onLogin }) => {
   const [credentials, setCredentials] = useState({ email: '', password: '' });
+  const { loginUser, loading, error } = useApi();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Mock login - replace with actual authentication
-    onLogin({
-      id: '1',
-      name: 'Cidadão Example',
-      email: credentials.email,
-      role: 'citizen'
-    });
+    const user = await loginUser(credentials.email, credentials.password);
+    if (user) {
+      onLogin(user);
+    }
   };
 
   return (
@@ -35,6 +35,24 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+          {error && (
+            <div className="rounded-md bg-red-50 p-4 mb-6">
+              <div className="flex">
+                <div className="flex-shrink-0">
+                  <AlertCircle className="h-5 w-5 text-red-400" />
+                </div>
+                <div className="ml-3">
+                  <h3 className="text-sm font-medium text-red-800">
+                    Erro no login
+                  </h3>
+                  <div className="mt-2 text-sm text-red-700">
+                    {error}
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+          
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700">
@@ -42,7 +60,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
               </label>
               <div className="mt-1 relative rounded-md shadow-sm">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <User className="h-5 w-5 text-gray-400" />
+                  <UserIcon className="h-5 w-5 text-gray-400" />
                 </div>
                 <input
                   id="email"
@@ -97,9 +115,10 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
             <div>
               <button
                 type="submit"
-                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                disabled={loading}
+                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Entrar
+                {loading ? 'Entrando...' : 'Entrar'}
               </button>
             </div>
           </form>

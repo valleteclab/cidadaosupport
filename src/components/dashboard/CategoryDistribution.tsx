@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts';
 
 const data = [
@@ -41,4 +41,4 @@ const CategoryDistribution: React.FC = () => {
   );
 };
 
-export default CategoryDistribution;
+export default memo(CategoryDistribution);
