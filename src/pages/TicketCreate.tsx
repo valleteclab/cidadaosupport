@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Camera, MapPin, AlertTriangle } from 'lucide-react';
-import type { Category } from '../types';
+import { Camera, MapPin } from 'lucide-react';
 import { DEFAULT_CATEGORIES } from '../constants/categories';
 
 const TicketCreate: React.FC = () => {

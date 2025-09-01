@@ -1,5 +1,4 @@
 import React from 'react';
-import { Users, Settings, Bell } from 'lucide-react';
 import AdminStats from '../components/admin/AdminStats';
 import UserManagement from '../components/admin/UserManagement';
 import CategoryManagement from '../components/admin/CategoryManagement';

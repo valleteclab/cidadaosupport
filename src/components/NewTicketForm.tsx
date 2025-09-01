@@ -1,7 +1,14 @@
 import React, { useState } from 'react';
 import type { TicketPriority } from '../types';
 
-const NewTicketForm: React.FC<{ onSubmit: (data: any) => void }> = ({ onSubmit }) => {
+interface TicketFormData {
+  title: string;
+  description: string;
+  category: string;
+  priority: TicketPriority;
+}
+
+const NewTicketForm: React.FC<{ onSubmit: (data: TicketFormData) => void }> = ({ onSubmit }) => {
   const [formData, setFormData] = useState({
     title: '',
     description: '',

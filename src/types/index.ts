@@ -71,8 +71,8 @@ export type TicketHistory = {
   action: 'created' | 'updated' | 'statusChanged' | 'assigned' | 'commented';
   changes: {
     field: string;
-    oldValue: any;
-    newValue: any;
+    oldValue: unknown;
+    newValue: unknown;
   }[];
   timestamp: Date;
 };
